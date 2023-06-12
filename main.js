@@ -52,12 +52,16 @@ function main() {
         }
     })
     
+    function setBackground(ctx, color) {
+        ctx.fillStyle = "black"
+        ctx.fillRect(0, 0, canvas.width, canvas.height)
+    }
+
     let delta = 0
     function loop() {
         delta++
         ctx.clearRect(0, 0, canvas.width, canvas.height)
-        ctx.fillStyle = "black"
-        ctx.fillRect(0, 0, canvas.width, canvas.height)
+        setBackground(ctx, 'black')
         ctx.fillStyle = 'green'
         player.x += player.speedX
         player.y += player.speedY
