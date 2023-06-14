@@ -2,13 +2,22 @@ import { player, drawPlayer, setPlayerAnimNextFrame } from "./player.js"
 
 function main() {
     const canvas = document.getElementById("canvas")
-    canvas.width = window.innerWidth
-    canvas.height = window.innerHeight
+    canvas.width = 1280
+    canvas.height = 720
     const ctx = canvas.getContext("2d")
     ctx.imageSmoothingEnabled = false
 
     const assetImage = new Image()
     assetImage.src = './asset.png'
+
+    addEventListener('resize', () => {
+        const container = document.getElementById('container')
+        let width_scale = window.innerWidth / canvas.width
+        let height_scale = window.innerHeight / canvas.height
+        let scale = Math.min(width_scale, height_scale)
+        container.style.width = `${canvas.width * scale}px`
+        container.style.height = `${canvas.height * scale}px`
+    })
 
     addEventListener('keydown', (key) => {
         if (key.code === 'ArrowRight') {
