@@ -57,9 +57,24 @@ function main() {
         ctx.fillRect(0, 0, canvas.width, canvas.height)
     }
 
-    let delta = 0
+    let frames = 0
+    let previousTime = window.performance.now()
+    const fps = 60
+    const timePerFrame = 1000 / fps // 1000 ms = 1 sec
     function loop() {
-        delta++
+        requestAnimationFrame(loop)
+
+        const currentTime = window.performance.now()
+        const timeElapsed = currentTime - previousTime
+
+        // In that case don't draw the frame
+        if (timeElapsed < timePerFrame) return
+
+        // make a visualization
+        const excessTime = timeElapsed % timePerFrame
+        previousTime = currentTime - excessTime
+
+        frames++
         ctx.clearRect(0, 0, canvas.width, canvas.height)
         setBackground(ctx, 'black')
         ctx.fillStyle = 'green'
@@ -67,13 +82,14 @@ function main() {
         player.y += player.speedY
         ctx.fillRect(player.x, player.y, 16 * 6, 16 * 6)
         drawPlayer(player, ctx, assetImage)
-        setPlayerAnimNextFrame(player, 10, delta)
-        
-        requestAnimationFrame(loop)
+        setPlayerAnimNextFrame(player, 10, frames)
     }
 
     assetImage.addEventListener('load', () => {
         loop()
+        setInterval(() => {
+            console.log(frames)
+        }, 1000)
     })
 }
 

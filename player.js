@@ -51,8 +51,8 @@ export function drawPlayer(player, ctx, assetImage) {
     )
 }
 
-export function setPlayerAnimNextFrame(player, frameRate, delta) {
-    if (delta % frameRate === 0) {
+export function setPlayerAnimNextFrame(player, frameRate, frames) {
+    if (frames % frameRate === 0) {
         if (player.animations[player.currentAnim].length - 1 === player.currentFrame || player.isIdle) {
             player.currentFrame = 0
         } else {
